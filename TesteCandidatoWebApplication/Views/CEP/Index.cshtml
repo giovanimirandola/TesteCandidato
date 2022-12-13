@@ -1,28 +1,20 @@
-﻿@model string
+﻿@model CEP
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "CEP";
 }
 
-@using (Html.BeginForm("CEP", "CEP", FormMethod.Post))
+<h3>CEP digitado: @Model.Cep</h3>
+<br />
+
+<h5>Logradouro: @Model.Logradouro</h5>
+@if (@Model.Complemento != "")
 {
-    <form method="post" action="BuscaPorCEP">
-        <div class="form-group col-md-6">
-            <label class="control-label">Buscar por CEP</label>
-            <br>
-            @Html.TextBox("cep")
-            <button type="submit" class="btn btn-primary">Buscar</button>
-        </div>
-    </form>
+        <h5>Complemento: @Model.Complemento</h5>
 }
-@using (Html.BeginForm("Logradouro", "CEP", FormMethod.Post))
-{
-    <form method="post" action="BuscaPorLogradouro">
-        <div class="form-group col-md-6">
-            <label class="control-label">Buscar por Logradouro na base de dados</label>
-            <br>
-            @Html.TextBox("logradouro")
-            <button type="submit" class="btn btn-primary">Buscar</button>
-        </div>
-    </form>
-}
+<h5>Bairro: @Model.Bairro</h5>
+<h5>Cidade: @Model.Localidade</h5>
+<h5>UF: @Model.UF</h5>
+<h5>Unidade: @Model.Unidade</h5>
+<h5>IBGE: @Model.IBGE</h5>
+<h5>GIA: @Model.GIA</h5>

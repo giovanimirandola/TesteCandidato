@@ -9,32 +9,30 @@ namespace TesteCandidatoWebApplication.Services.CEPService
 {
     public class CEPService : ICEPService
     {
-        private readonly ICEPRepository _repository;
+        private readonly ICEPRepository _cepRepository;
         public CEPService(ICEPRepository repository)
         {
-            _repository = repository;
-        }
-        public async Task<List<CEP>> GetCEPs()
-        {
-            return await _repository.GetCEPs();
+            _cepRepository = repository;
         }
 
-        public async Task<CEP> GetCEPById(int id)
+        #region GET
+
+        public async Task<List<CEP>> GetAll()
         {
-            var cep = await _repository.GetCEPById(id);
+            return await _cepRepository.GetAll();
+        }
+
+        public async Task<CEP> GetById(int id)
+        {
+            var cep = await _cepRepository.GetById(id);
 
             return cep;
-        }
-
-        public async Task<List<CEP>> AddCEP(CEP cep)
-        {
-            return await _repository.AddCEP(cep);
         }
 
         public async Task<CEP> GetByCep(string cep)
         {
             if (!cep.IsNullOrEmpty())
-                return await _repository.GetByCEP(cep);
+                return await _cepRepository.GetByCEP(cep);
 
             return null;
         }
@@ -42,24 +40,23 @@ namespace TesteCandidatoWebApplication.Services.CEPService
         public async Task<List<CEP>> GetByLogradouro(string logradouro)
         {
             if (!logradouro.IsNullOrEmpty())
-                return await _repository.GetByLogradouro(logradouro);
+                return await _cepRepository.GetByLogradouro(logradouro);
 
             return new List<CEP>();
         }
 
-        public bool ValidaCEP(string cep)
+
+        #endregion
+
+        #region POST
+
+        public async Task<List<CEP>> AddCEP(CEP cep)
         {
-            var regFormato1 = new Regex(@"^\d{5}-\d{3}");
-            var regFormato2 = new Regex(@"^\d{8}");
-
-            if (regFormato1.IsMatch(cep) || regFormato2.IsMatch(cep))
-            {
-                return true;
-            }
-
-            return false;
+            return await _cepRepository.AddCEP(cep);
         }
 
+        #endregion
+        
         public async Task<CEP> ConsultaAPI(string cep)
         {
             var client = new RestClient("https://viacep.com.br/ws/");
@@ -77,6 +74,18 @@ namespace TesteCandidatoWebApplication.Services.CEPService
             return obj;
         }
 
+        public bool ValidaCEP(string cep)
+        {
+            var regFormato1 = new Regex(@"^\d{5}-\d{3}");
+            var regFormato2 = new Regex(@"^\d{8}");
+
+            if (regFormato1.IsMatch(cep) || regFormato2.IsMatch(cep))
+            {
+                return true;
+            }
+
+            return false;
+        }
 
     }
 

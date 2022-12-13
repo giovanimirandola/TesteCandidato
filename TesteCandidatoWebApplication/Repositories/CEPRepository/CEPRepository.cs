@@ -12,12 +12,15 @@ namespace TesteCandidatoWebApplication.Repositories.CEPRepository
         {
             _dbContext = dataContext;
         }
-        public async Task<List<CEP>> GetCEPs()
+
+        #region GET
+
+        public async Task<List<CEP>> GetAll()
         {
             return await _dbContext.CEPs.ToListAsync();
         }
 
-        public async Task<CEP> GetCEPById(int id)
+        public async Task<CEP> GetById(int id)
         {
             var cep = await _dbContext.CEPs.FindAsync(id);
 
@@ -25,14 +28,6 @@ namespace TesteCandidatoWebApplication.Repositories.CEPRepository
                 return null;
 
             return cep;
-        }
-
-        public async Task<List<CEP>> AddCEP(CEP cep)
-        {
-            await _dbContext.CEPs.AddAsync(cep);
-            await _dbContext.SaveChangesAsync();
-
-            return await _dbContext.CEPs.ToListAsync();
         }
 
         public async Task<CEP> GetByCEP(string cep)
@@ -51,5 +46,19 @@ namespace TesteCandidatoWebApplication.Repositories.CEPRepository
                 .ToListAsync();
             return cepBD;
         }
+
+        #endregion
+
+        #region POST
+
+        public async Task<List<CEP>> AddCEP(CEP cep)
+        {
+            await _dbContext.CEPs.AddAsync(cep);
+            await _dbContext.SaveChangesAsync();
+
+            return await _dbContext.CEPs.ToListAsync();
+        }
+
+        #endregion
     }
 }
