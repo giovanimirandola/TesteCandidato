@@ -1,0 +1,28 @@
+﻿@model string
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@using (Html.BeginForm("CEP", "CEP", FormMethod.Post))
+{
+    <form method="post" action="BuscaPorCEP">
+        <div class="form-group col-md-6">
+            <label class="control-label">Buscar por CEP</label>
+            <br>
+            @Html.TextBox("cep")
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </div>
+    </form>
+}
+@using (Html.BeginForm("Logradouro", "CEP", FormMethod.Post))
+{
+    <form method="post" action="BuscaPorLogradouro">
+        <div class="form-group col-md-6">
+            <label class="control-label">Buscar por Logradouro na base de dados</label>
+            <br>
+            @Html.TextBox("logradouro")
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </div>
+    </form>
+}

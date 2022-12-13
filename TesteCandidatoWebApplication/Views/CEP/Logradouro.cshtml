@@ -1,0 +1,57 @@
+﻿@model List<CEP>
+
+@{
+    ViewData["Title"] = "Lista";
+}
+
+<h3>CEPs encontrados na base de dados</h3>
+<br />
+
+@{
+    var ceps = Model;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table border="2">
+            <thead class="border-2">
+                <tr>
+                    <th class="col-md-1 text-center">CEP</th>
+                    <th class="col-md-3 text-center">Logradouro</th>
+                    <th class="col-md-1 text-center">Complemento</th>
+                    <th class="col-md-2 text-center">Bairro</th>
+                    <th class="col-md-1 text-center">Cidade</th>
+                    <th class="col-md-1 text-center">UF</th>
+                    <th class="col-md-1 text-center">Unidade</th>
+                    <th class="col-md-1 text-center">IBGE</th>
+                    <th class="col-md-1 text-center">GIA</th>
+                </tr>
+            </thead>
+            <tbody class="border-1">
+                @if (ceps.Count > 0)
+                {
+                    foreach (var cep in ceps)
+                    {
+                        <tr>
+                            <td class="col-md-1 text-center">@cep.Cep</td>
+                            <td class="col-md-3 text-center">@cep.Logradouro</td>
+                            <td class="col-md-1 text-center">@cep.Complemento</td>
+                            <td class="col-md-2 text-center">@cep.Bairro</td>
+                            <td class="col-md-1 text-center">@cep.Localidade</td>
+                            <td class="col-md-1 text-center">@cep.UF</td>
+                            <td class="col-md-1 text-center">@cep.Unidade</td>
+                            <td class="col-md-1 text-center">@cep.IBGE</td>
+                            <td class="col-md-1 text-center">@cep.GIA</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="12">Nenhum registro encontrado</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
