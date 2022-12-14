@@ -31,10 +31,26 @@ namespace TesteCandidatoWebApplication.Services.CEPService
 
         public async Task<CEP> GetByCep(string cep)
         {
-            if (!cep.IsNullOrEmpty())
-                return await _cepRepository.GetByCEP(cep);
+            if (!ValidaCEP(cep))
+            {
+                return null;
+                //return RedirectToAction("Index");
+            }
 
-            return null;
+            cep = cep.Replace("-", ""); // usando o padrão do banco, assim, independente do formato digitado pode encontrar no bancoZ
+
+            var cepBanco = await _cepRepository.GetByCEP(cep);
+            if (cepBanco == null)
+            {
+                var cepAPI = await ConsultaAPI(cep);
+                if (cepAPI != null)
+                {
+                    await _cepRepository.AddCEP(cepAPI);
+                    return cepAPI;
+                }
+            }
+
+            return cepBanco;
         }
 
         public async Task<List<CEP>> GetByLogradouro(string logradouro)
@@ -76,10 +92,9 @@ namespace TesteCandidatoWebApplication.Services.CEPService
 
         public bool ValidaCEP(string cep)
         {
-            var regFormato1 = new Regex(@"^\d{5}-\d{3}");
-            var regFormato2 = new Regex(@"^\d{8}");
+            var formatoValido = new Regex(@"^\d{5}-\d{3}|\d{8}");
 
-            if (regFormato1.IsMatch(cep) || regFormato2.IsMatch(cep))
+            if (cep != null && formatoValido.IsMatch(cep))
             {
                 return true;
             }

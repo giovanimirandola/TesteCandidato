@@ -4,9 +4,9 @@
     ViewData["Title"] = "Home Page";
 }
 
-@using (Html.BeginForm("Index", "CEP", FormMethod.Post))
+@using (Html.BeginForm("Index", "CEP", FormMethod.Get))
 {
-    <form method="post" action="BuscaPorCEP">
+    <form>
         <div class="form-group col-md-6">
             <label class="control-label">Buscar por CEP</label>
             <br>
@@ -15,9 +15,9 @@
         </div>
     </form>
 }
-@using (Html.BeginForm("Index", "Logradouro", FormMethod.Post))
+@using (Html.BeginForm("Index", "Logradouro", FormMethod.Get))
 {
-    <form method="post" action="BuscaPorLogradouro">
+    <form>
         <div class="form-group col-md-6">
             <label class="control-label">Buscar por Logradouro na base de dados</label>
             <br>

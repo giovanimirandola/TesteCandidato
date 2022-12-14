@@ -22,6 +22,5 @@ namespace TesteCandidatoWebApplication.Services.CEPService
         Task<CEP> ConsultaAPI(string cep);
 
         bool ValidaCEP(string cep);
-
     }
 }

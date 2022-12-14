@@ -12,28 +12,15 @@ namespace TesteCandidatoWebApplication.Controllers
             _cepService = cepService;
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Index(string cep)
         {
-            if (!_cepService.ValidaCEP(cep))
-            {
-                return RedirectToAction("Index");
-            }
+            var retorno = await _cepService.GetByCep(cep);
 
-            cep = cep.Replace("-", ""); // usando o padrão do banco, assim, independente do formato digitado pode encontrar no banco
+            if (retorno == null)
+                return View();
 
-            var cepBanco = await _cepService.GetByCep(cep);
-            if (cepBanco == null)
-            {
-                var cepAPI = await _cepService.ConsultaAPI(cep);
-                if (cepAPI != null)
-                {
-                    await _cepService.AddCEP(cepAPI);
-                    return View(cepAPI);
-                }
-            }
-
-            return View(cepBanco);
+            return View(retorno);
         }
     }
 }

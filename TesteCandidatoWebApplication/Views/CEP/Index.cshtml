@@ -4,17 +4,25 @@
     ViewData["Title"] = "CEP";
 }
 
-<h3>CEP digitado: @Model.Cep</h3>
-<br />
-
-<h5>Logradouro: @Model.Logradouro</h5>
-@if (@Model.Complemento != "")
+@if (@Model != null)
 {
-        <h5>Complemento: @Model.Complemento</h5>
+
+    <h3>CEP digitado: @Model.Cep</h3>
+    <br />
+
+    <h5>Logradouro: @Model.Logradouro</h5>
+    @if (@Model.Complemento != "")
+    {
+                <h5>Complemento: @Model.Complemento</h5>
+    }
+    <h5>Bairro: @Model.Bairro</h5>
+    <h5>Cidade: @Model.Localidade</h5>
+    <h5>UF: @Model.UF</h5>
+    <h5>Unidade: @Model.Unidade</h5>
+    <h5>IBGE: @Model.IBGE</h5>
+    <h5>GIA: @Model.GIA</h5>
 }
-<h5>Bairro: @Model.Bairro</h5>
-<h5>Cidade: @Model.Localidade</h5>
-<h5>UF: @Model.UF</h5>
-<h5>Unidade: @Model.Unidade</h5>
-<h5>IBGE: @Model.IBGE</h5>
-<h5>GIA: @Model.GIA</h5>
+else
+{
+        <h3>CEP inválido! Formatos aceitos: 'XXXXX-XXX' e 'XXXXXXXX'</h3>
+}

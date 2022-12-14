@@ -12,7 +12,7 @@ namespace TesteCandidatoWebApplication.Controllers
             _cepService = cepService;
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Index(string logradouro)
         {
             var ceps = await _cepService.GetByLogradouro(logradouro);
